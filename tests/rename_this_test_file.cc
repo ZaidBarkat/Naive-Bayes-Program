@@ -1,12 +1,13 @@
 #include <catch2/catch.hpp>
 
-#include <core/File.h>
-#include <core/Model.h>
+#include <core/image_processor.h>
+#include <core/model.h>
 
 TEST_CASE("Check that 126 is the best class") {
-    naivebayes::File file = naivebayes::File("..\\trainingimagesandlabels.txt");
-    naivebayes::Model model(file.getImages());
+    naivebayes::ImageProcessor file = naivebayes::ImageProcessor("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\trainingimagesandlabels.txt");
+    naivebayes::model model(file.getImages(), file.GetLength());
     model.CalculatePriorProbabilities();
+    model.CalculateFeatureProbabilities();
     REQUIRE(true);
 }
 

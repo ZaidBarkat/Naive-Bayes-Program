@@ -1,24 +1,19 @@
 
-#include <core/File.h>
+#include <core/image_processor.h>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
 namespace naivebayes {
 
-    File::File(std::string file_location) {
-        file_name_ = file_location;
+    ImageProcessor::ImageProcessor(std::string file_location) {
 
-        std::ifstream file(file_name_);
-        std::vector<Image> images;
-        Image image;
+        std::ifstream file(file_location);
+        image image;
         string line;
         string image_string;
 
-        //file.open("trainingimagesandlabels.txt");
-
         if (file.is_open()) {
-            std::cout<<"here"<<std::endl;
             while (getline(file, line)) {
                 if (line.size() == 1) {
                     std::istringstream iss(image_string);
@@ -33,16 +28,14 @@ namespace naivebayes {
             iss >> image;
             images_.push_back(image);
             file.close();
-
-            //images_ = images;
         }
     }
 
-    const vector<Image> &File::getImages() const {
+    const vector<image> &ImageProcessor::getImages() const {
         return images_;
     }
 
-    int File::GetLength() const {
+    int ImageProcessor::GetLength() const {
         return length_;
     }
 

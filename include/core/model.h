@@ -1,16 +1,17 @@
 #pragma once
+
 #include <string>
 #include <vector>
-#include "Image.h"
+#include "image.h"
 
 namespace naivebayes {
 
     using std::string;
     using std::vector;
 
-    class Model {
+    class model {
     public:
-        Model(vector<Image> images, int length);
+        model(vector<image> images, int length);
 
         void CalculatePriorProbabilities();
 
@@ -19,18 +20,19 @@ namespace naivebayes {
         const vector<float> &GetPriorProbabilities() const;
 
     private:
-        static float constexpr fK = 1;
-        static float constexpr fShadeSize = 2;
+        static int constexpr fK = 1;
+        static int constexpr fShadeSize = 2;
         static float constexpr fInitialValue = 0;
+        static int constexpr fNumberOfClasses = 10;
 
         int length_;
-        vector<Image> images_;
+        vector<image> images_;
         vector<int> class_size_;
         vector<float> prior_probabilities_;
 
         vector<vector<vector<vector<float>>>> feature_probabilities_;
 
 
-};
+    };
 
 }  // namespace naivebayes
