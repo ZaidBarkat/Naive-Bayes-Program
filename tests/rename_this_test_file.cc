@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include <core/image_processor.h>
+#include <core/file_processors/image_processor.h>
 #include <core/model.h>
 
 TEST_CASE("Check that 126 is the best class") {

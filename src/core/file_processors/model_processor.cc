@@ -1,13 +1,14 @@
 
-#include <core/image_processor.h>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <core/file_processors/model_processor.h>
 
 namespace naivebayes {
 
-    ImageProcessor::ImageProcessor(std::string file_location) {
+    ModelProcessor::ModelProcessor(std::string file_location) {
 
+        file_location_ = file_location;
         std::ifstream file(file_location);
         image image;
         string line;
@@ -31,12 +32,5 @@ namespace naivebayes {
         }
     }
 
-    const vector<image> &ImageProcessor::getImages() const {
-        return images_;
-    }
-
-    int ImageProcessor::GetLength() const {
-        return length_;
-    }
 
 }  // namespace naivebayes

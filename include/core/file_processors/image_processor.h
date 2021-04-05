@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include "image.h"
+#include "core/image.h"
 
 namespace naivebayes {
 

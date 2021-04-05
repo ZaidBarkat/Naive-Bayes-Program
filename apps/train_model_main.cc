@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <core/image.h>
-#include <core/image_processor.h>
+#include <core/file_processors/image_processor.h>
 #include <core/model.h>
 #include <core/image.h>
 
