@@ -10,9 +10,12 @@ namespace naivebayes {
 
         const vector<Image> &getImages() const;
 
+        int GetLength() const;
+
     private:
         std::string file_name_;
         std::vector<Image> images_;
+        int length_;
     };
 }  // namespace naivebayes
 

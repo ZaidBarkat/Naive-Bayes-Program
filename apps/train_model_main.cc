@@ -11,7 +11,8 @@ int main() {
   // and saves the trained model to a file.
 
     naivebayes::File file = naivebayes::File("..\\trainingimagesandlabels.txt");
-    naivebayes::Model model(file.getImages());
+    naivebayes::Model model(file.getImages(), file.GetLength());
     model.CalculatePriorProbabilities();
+    model.CalculateFeatureProbabilities();
   return 0;
 }

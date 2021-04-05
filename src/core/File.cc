@@ -26,6 +26,7 @@ namespace naivebayes {
                     images_.push_back(image);
                     image_string = "";
                 }
+                length_ = line.size();
                 image_string += line;
             }
             std::istringstream iss(image_string);
@@ -39,6 +40,10 @@ namespace naivebayes {
 
     const vector<Image> &File::getImages() const {
         return images_;
+    }
+
+    int File::GetLength() const {
+        return length_;
     }
 
 }  // namespace naivebayes

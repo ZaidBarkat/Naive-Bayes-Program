@@ -11,18 +11,14 @@ namespace naivebayes {
     public:
         int GetClass() const;
 
-        const string &GetPixels() const;
-
         friend std::istream &operator>>(std::istream &input, Image &image);
+
+        const string &GetPixels() const;
 
     private:
         int class_;
         string pixels_;
-
         void PixelToBits();
-
-
-
     };
 
 }  // namespace naivebayes
