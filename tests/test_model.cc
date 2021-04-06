@@ -6,9 +6,9 @@
 #include <fstream>
 
 
-
 TEST_CASE("Check Model class") {
-    naivebayes::ImageProcessor image_file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt");
+    naivebayes::ImageProcessor image_file(
+            "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt");
     naivebayes::Model model(image_file.getImages(), image_file.GetLength());
     model.CalculatePriorProbabilities();
     model.CalculateFeatureProbabilities();
@@ -18,8 +18,7 @@ TEST_CASE("Check Model class") {
         }SECTION("Test model prior data again") {
             REQUIRE(0.1481481493f == Approx(model.GetPriorProbabilities()[9]));
         }
-    }
-    SECTION("Check Model feature probabilities") {
+    }SECTION("Check Model feature probabilities") {
         SECTION("Test model feature data") {
             REQUIRE(0.8f == Approx(model.GetFeatureProbabilities()[0][27][9][0]));
         }SECTION("Test model feature data again") {
@@ -27,8 +26,10 @@ TEST_CASE("Check Model class") {
         }
     }
 }
+
 TEST_CASE("Check Model class for 7 by 7") {
-    naivebayes::ImageProcessor image_file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt");
+    naivebayes::ImageProcessor image_file(
+            "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt");
     naivebayes::Model model(image_file.getImages(), image_file.GetLength());
     model.CalculatePriorProbabilities();
     model.CalculateFeatureProbabilities();
@@ -38,8 +39,7 @@ TEST_CASE("Check Model class for 7 by 7") {
         }SECTION("Test model prior data again") {
             REQUIRE(0.1875f == Approx(model.GetPriorProbabilities()[4]));
         }
-    }
-    SECTION("Check Model feature probabilities") {
+    }SECTION("Check Model feature probabilities") {
         SECTION("Test model feature data") {
             REQUIRE(0.5f == Approx(model.GetFeatureProbabilities()[0][5][1][0]));
         }SECTION("Test model feature data again") {

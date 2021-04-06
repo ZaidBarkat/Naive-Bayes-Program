@@ -6,7 +6,13 @@ namespace naivebayes {
 
     class ImageProcessor {
     public:
-        ImageProcessor(std::string file_location);
+        /**
+         * Takes a file, and gets the image of one number in that file, and then
+         * pushes that value into a vector.
+         *
+         * @param file_location of the file path
+         */
+        ImageProcessor(const std::string& file_location);
 
         const vector<Image> &getImages() const;
 

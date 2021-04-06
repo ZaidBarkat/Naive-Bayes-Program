@@ -13,16 +13,6 @@ namespace naivebayes {
         return input;
     }
 
-//    void Image::PixelToBits() {
-//        for (char &c: pixels_) {
-//            if (c == ' ') {
-//                c = '0';
-//            } else if (c == '+' || c == '#') {
-//                c = '1';
-//            }
-//        }
-//    }
-
     int Image::GetClass() const {
         return class_;
     }

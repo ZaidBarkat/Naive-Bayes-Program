@@ -7,11 +7,12 @@
 
 TEST_CASE("Check image file") {
     SECTION("Test image file line length") {
-        naivebayes::ImageProcessor file = naivebayes::ImageProcessor("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt");
+        naivebayes::ImageProcessor file = naivebayes::ImageProcessor(
+                "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt");
         REQUIRE(28 == file.GetLength());
-    }
-    SECTION("Test image file line length for 7 by 7") {
-        naivebayes::ImageProcessor smaller_file = naivebayes::ImageProcessor("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt");
+    }SECTION("Test image file line length for 7 by 7") {
+        naivebayes::ImageProcessor smaller_file = naivebayes::ImageProcessor(
+                "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt");
         REQUIRE(7 == smaller_file.GetLength());
     }
 }

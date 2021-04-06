@@ -2,11 +2,10 @@
 #include <core/file_processors/image_processor.h>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 
 namespace naivebayes {
 
-    ImageProcessor::ImageProcessor(std::string file_location) {
+    ImageProcessor::ImageProcessor(const std::string& file_location) {
 
         std::ifstream file(file_location);
         Image image;

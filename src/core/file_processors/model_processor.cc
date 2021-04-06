@@ -1,14 +1,11 @@
-
 #include <fstream>
-#include <sstream>
-#include <iostream>
+#include <utility>
 #include <core/file_processors/model_processor.h>
-#include <core/model.h>
 
 namespace naivebayes {
 
     ModelProcessor::ModelProcessor(std::string file_location) {
-        file_location_ = file_location;
+        file_location_ = std::move(file_location);
     }
 
     void ModelProcessor::Write(Model model) {

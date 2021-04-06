@@ -1,13 +1,15 @@
 #include <core/model.h>
 
+#include <utility>
+
 namespace naivebayes {
 
     Model::Model(vector<Image> images, int length) {
-        images_ = images;
+        images_ = std::move(images);
         length_ = length;
 
         class_size_.resize(fNumberOfClasses, (int) fInitialValue);
-        for (Image image: images_) {
+        for (const Image &image: images_) {
             if (image.GetClass() < 0) {
                 continue;
             }
@@ -15,14 +17,14 @@ namespace naivebayes {
         }
     }
 
-    Model::Model() {}
+    Model::Model() = default;
 
     void Model::CalculatePriorProbabilities() {
         prior_probabilities_.resize(fNumberOfClasses);
 
         for (size_t i = 0; i < prior_probabilities_.size(); i++) {
             prior_probabilities_[i] =
-                    (fK + (float) class_size_[i]) / (fNumberOfClasses * fK + (float) (images_.size() - 1));
+                    (float) (fK + class_size_[i]) / (float) (fNumberOfClasses * fK + (images_.size() - 1));
         }
     }
 
@@ -37,7 +39,7 @@ namespace naivebayes {
             for (int j = 0; j < length_; j++) {
                 sum++;
                 for (int c = 0; c < (int) class_size_.size(); c++) {
-                    for (Image image: images_) {
+                    for (const Image &image: images_) {
 
                         if (image.GetClass() == c) {
                             if (image.GetPixels()[sum] == ' ') {
@@ -48,9 +50,9 @@ namespace naivebayes {
                         }
                     }
                     feature_probabilities_[i][j][c][0] =
-                            (fK + (float) number_of_images_unshaded) / (fShadeSize * fK + (float) class_size_[c]);
+                            (float) (fK + number_of_images_unshaded) / (float) (fShadeSize * fK + class_size_[c]);
                     feature_probabilities_[i][j][c][1] =
-                            (fK + (float) number_of_images_shaded) / (fShadeSize * fK + (float) class_size_[c]);
+                            (float) (fK + number_of_images_shaded) / (float) (fShadeSize * fK + class_size_[c]);
                     number_of_images_shaded = 0;
                     number_of_images_unshaded = 0;
                 }
