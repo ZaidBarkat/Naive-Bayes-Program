@@ -7,11 +7,11 @@ namespace naivebayes {
     using std::string;
     using std::vector;
 
-    class image {
+    class Image {
     public:
         int GetClass() const;
 
-        friend std::istream &operator>>(std::istream &input, image &image);
+        friend std::istream &operator>>(std::istream &input, Image &image);
 
         const string &GetPixels() const;
 

@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <core/model.h>
 #include "core/image.h"
 
 namespace naivebayes {
@@ -8,9 +9,9 @@ namespace naivebayes {
     public:
         ModelProcessor(std::string file_location);
 
-        Write();
+        void Write(Model model);
 
-        Read();
+        Model Read();
 
     private:
         std::string file_location_;

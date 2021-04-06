@@ -2,7 +2,7 @@
 
 namespace naivebayes {
 
-    std::istream &operator>>(std::istream &input, image &image) {
+    std::istream &operator>>(std::istream &input, Image &image) {
         std::string line;
         getline(input, line);
         image.pixels_ = line;
@@ -14,7 +14,7 @@ namespace naivebayes {
         return input;
     }
 
-    void image::PixelToBits() {
+    void Image::PixelToBits() {
         for (char &c: pixels_) {
             if (c == ' ') {
                 c = '0';
@@ -24,11 +24,11 @@ namespace naivebayes {
         }
     }
 
-    int image::GetClass() const {
+    int Image::GetClass() const {
         return class_;
     }
 
-    const string &image::GetPixels() const {
+    const string &Image::GetPixels() const {
         return pixels_;
     }
 

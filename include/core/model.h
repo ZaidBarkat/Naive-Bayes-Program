@@ -9,13 +9,20 @@ namespace naivebayes {
     using std::string;
     using std::vector;
 
-    class model {
+    class Model {
     public:
-        model(vector<image> images, int length);
+        Model(vector<Image> images, int length);
+
+        Model();
+
+        friend std::istream &operator>>(std::istream &input, Model &model);
+
+        friend std::ostream &operator<<(std::ostream &output, Model &model);
 
         void CalculatePriorProbabilities();
 
         void CalculateFeatureProbabilities();
+
 
         const vector<float> &GetPriorProbabilities() const;
 
@@ -26,11 +33,12 @@ namespace naivebayes {
         static int constexpr fNumberOfClasses = 10;
 
         int length_;
-        vector<image> images_;
+        vector<Image> images_;
         vector<int> class_size_;
         vector<float> prior_probabilities_;
-
         vector<vector<vector<vector<float>>>> feature_probabilities_;
+
+        void Initialize4DVector();
 
 
     };

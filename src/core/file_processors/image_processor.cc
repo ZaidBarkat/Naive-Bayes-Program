@@ -9,7 +9,7 @@ namespace naivebayes {
     ImageProcessor::ImageProcessor(std::string file_location) {
 
         std::ifstream file(file_location);
-        image image;
+        Image image;
         string line;
         string image_string;
 
@@ -31,7 +31,7 @@ namespace naivebayes {
         }
     }
 
-    const vector<image> &ImageProcessor::getImages() const {
+    const vector<Image> &ImageProcessor::getImages() const {
         return images_;
     }
 

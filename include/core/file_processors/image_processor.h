@@ -8,12 +8,12 @@ namespace naivebayes {
     public:
         ImageProcessor(std::string file_location);
 
-        const vector<image> &getImages() const;
+        const vector<Image> &getImages() const;
 
         int GetLength() const;
 
     private:
-        std::vector<image> images_;
+        std::vector<Image> images_;
         int length_;
     };
 }  // namespace naivebayes
