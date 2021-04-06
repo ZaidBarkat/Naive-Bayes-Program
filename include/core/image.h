@@ -20,7 +20,7 @@ namespace naivebayes {
         int class_;
         string pixels_;
 
-        void PixelToBits();
+        //void PixelToBits();
     };
 
 }  // namespace naivebayes

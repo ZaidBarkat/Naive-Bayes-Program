@@ -26,6 +26,8 @@ namespace naivebayes {
 
         const vector<float> &GetPriorProbabilities() const;
 
+        const vector<vector<vector<vector<float>>>> &GetFeatureProbabilities() const;
+
     private:
         static int constexpr fK = 1;
         static int constexpr fShadeSize = 2;

@@ -60,7 +60,10 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
 src/visualizer/naive_bayes_app.cc
 src/visualizer/sketchpad.cc)
 
-list(APPEND TEST_FILES tests/rename_this_test_file.cc)
+list(APPEND TEST_FILES tests/test_model.cc
+        tests/test_image.cc
+        tests/test_image_processor.cc
+        tests/test_model_processor.cc)
 
 add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES})
 target_include_directories(train-model PRIVATE include)

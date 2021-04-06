@@ -40,9 +40,9 @@ namespace naivebayes {
                     for (Image image: images_) {
 
                         if (image.GetClass() == c) {
-                            if (image.GetPixels()[sum] == '0') {
+                            if (image.GetPixels()[sum] == ' ') {
                                 ++number_of_images_unshaded;
-                            } else if (image.GetPixels()[sum] == '1') {
+                            } else if (image.GetPixels()[sum] == '+' || image.GetPixels()[sum] == '#') {
                                 ++number_of_images_shaded;
                             }
                         }
@@ -114,6 +114,10 @@ namespace naivebayes {
 
     const vector<float> &Model::GetPriorProbabilities() const {
         return prior_probabilities_;
+    }
+
+    const vector<vector<vector<vector<float>>>> &Model::GetFeatureProbabilities() const {
+        return feature_probabilities_;
     }
 
 
