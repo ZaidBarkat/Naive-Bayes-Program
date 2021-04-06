@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <vector>
 
@@ -18,6 +19,7 @@ namespace naivebayes {
     private:
         int class_;
         string pixels_;
+
         void PixelToBits();
     };
 

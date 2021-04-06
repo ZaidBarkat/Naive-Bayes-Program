@@ -21,7 +21,8 @@ namespace naivebayes {
         prior_probabilities_.resize(fNumberOfClasses);
 
         for (size_t i = 0; i < prior_probabilities_.size(); i++) {
-            prior_probabilities_[i] = (fK + (float) class_size_[i]) / (10 * fK + (float) (images_.size() - 1));
+            prior_probabilities_[i] =
+                    (fK + (float) class_size_[i]) / (fNumberOfClasses * fK + (float) (images_.size() - 1));
         }
     }
 
@@ -47,9 +48,9 @@ namespace naivebayes {
                         }
                     }
                     feature_probabilities_[i][j][c][0] =
-                            (fK + (float) number_of_images_unshaded) / (2 * fK + (float) class_size_[c]);
+                            (fK + (float) number_of_images_unshaded) / (fShadeSize * fK + (float) class_size_[c]);
                     feature_probabilities_[i][j][c][1] =
-                            (fK + (float) number_of_images_shaded) / (2 * fK + (float) class_size_[c]);
+                            (fK + (float) number_of_images_shaded) / (fShadeSize * fK + (float) class_size_[c]);
                     number_of_images_shaded = 0;
                     number_of_images_unshaded = 0;
                 }
@@ -59,7 +60,7 @@ namespace naivebayes {
 
     std::istream &operator>>(std::istream &input, Model &model) {
         std::string line;
-        getline(input,line);
+        getline(input, line);
         model.length_ = std::stoi(line);
         model.Initialize4DVector();
         model.prior_probabilities_.resize(model.fNumberOfClasses);
@@ -77,7 +78,7 @@ namespace naivebayes {
 
         for (float &probability: model.prior_probabilities_) {
             getline(input, line);
-             probability = std::stof(line);
+            probability = std::stof(line);
         }
         return input;
     }
@@ -101,14 +102,14 @@ namespace naivebayes {
     }
 
     void Model::Initialize4DVector() {
-         feature_probabilities_ = std::vector<std::vector<std::vector<std::vector<float>>>>(length_,
-                                                                                       std::vector<std::vector<std::vector<float>>>(
-                                                                                               length_,
-                                                                                               std::vector<std::vector<float>>(
-                                                                                                       (int) fNumberOfClasses,
-                                                                                                       std::vector<float>(
-                                                                                                               fShadeSize,
-                                                                                                               fInitialValue))));
+        feature_probabilities_ = std::vector<std::vector<std::vector<std::vector<float>>>>(length_,
+                                                                                           std::vector<std::vector<std::vector<float>>>(
+                                                                                                   length_,
+                                                                                                   std::vector<std::vector<float>>(
+                                                                                                           (int) fNumberOfClasses,
+                                                                                                           std::vector<float>(
+                                                                                                                   fShadeSize,
+                                                                                                                   fInitialValue))));
     }
 
     const vector<float> &Model::GetPriorProbabilities() const {
