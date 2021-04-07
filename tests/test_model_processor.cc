@@ -60,5 +60,11 @@ TEST_CASE("Check Model load and write for 7 by 7") {
         }SECTION("Test model file feature data") {
             REQUIRE(0.25f == Approx(new_model.GetFeatureProbabilities()[4][4][4][1]));
         }
+        SECTION("Test new model data features") {
+            REQUIRE(new_model.GetFeatureProbabilities() == model.GetFeatureProbabilities());
+        }
+        SECTION("Test new model data priors") {
+            REQUIRE(new_model.GetPriorProbabilities() == model.GetPriorProbabilities());
+        }
     }
 }
