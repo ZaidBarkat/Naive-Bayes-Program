@@ -1,14 +1,24 @@
 #include <core/image.h>
+#include <fstream>
+#include <sstream>
 
 namespace naivebayes {
 
     std::istream &operator>>(std::istream &input, Image &image) {
         std::string line;
+        input >> image.class_;
         getline(input, line);
-        image.pixels_ = line;
+        getline(input, line);
 
-        image.class_ = (int) image.pixels_[0] - '0';
-        image.pixels_.erase(0, 1);
+        int length = line.size();
+        image.pixels_ = vector<vector<char>>(length, vector<char>(length, ' '));
+
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                image.pixels_[i][j] = line[j];
+            }
+            getline(input, line);
+        }
 
         return input;
     }
@@ -17,9 +27,37 @@ namespace naivebayes {
         return class_;
     }
 
-    const string &Image::GetPixels() const {
+    const vector<vector<char>> &Image::GetPixels() const {
         return pixels_;
     }
 
+    vector<Image> Image::ImagesFromFile(std::string path) {
+        std::string line;
+        vector<Image> images;
+        std::ifstream file(path);
+        Image current;
 
-}  // namespace naivebayes
+        while(file >> current) {
+            images.push_back(current);
+        }
+        file.close();
+
+        return images;
+    }
+
+//        if (file.is_open()) {
+//            while (getline(file, line)) {
+//                if (line.size() == 1) {
+//                    std::istringstream iss(image_string);
+//                    iss >> image;
+//                    images.push_back(image);
+//                    image_string = "";
+//                }
+//                image_string += line;
+//            }
+//            std::istringstream iss(image_string);
+//            iss >> image;
+//            images.push_back(image);
+//            file.close();
+       }
+       // namespace naivebayes

@@ -4,55 +4,53 @@
 
 namespace naivebayes {
 
-    Model::Model(vector<Image> images, int length) {
-        images_ = std::move(images);
-        length_ = length;
-
-        class_size_.resize(fNumberOfClasses, (int) fInitialValue);
-        for (const Image &image: images_) {
-            if (image.GetClass() < 0) {
-                continue;
-            }
-            ++class_size_[image.GetClass()];
-        }
-    }
-
-    Model::Model() = default;
-
-    void Model::CalculatePriorProbabilities() {
+    Model::Model() {
         prior_probabilities_.resize(fNumberOfClasses);
-
-        for (size_t i = 0; i < prior_probabilities_.size(); i++) {
-            prior_probabilities_[i] =
-                    (float) (fK + class_size_[i]) / (float) (fNumberOfClasses * fK + (images_.size() - 1));
-        }
     }
 
-    void Model::CalculateFeatureProbabilities() {
-        int sum = -1;
-        int number_of_images_unshaded = 0;
-        int number_of_images_shaded = 0;
-
+    void Model::Train(vector<Image> images) {
+        images_ = images;
+        vector<int> class_size;
         Initialize4DVector();
 
-        for (int i = 0; i < length_; i++) {
-            for (int j = 0; j < length_; j++) {
-                sum++;
-                for (int c = 0; c < (int) class_size_.size(); c++) {
+        class_size.resize(fNumberOfClasses, (int) fInitialValue);
+        for (const Image &image: images) {
+            ++class_size[image.GetClass()];
+        }
+
+        CalculatePriorProbabilities(class_size);
+        CalculateFeatureProbabilities(class_size);
+    }
+
+    void Model::CalculatePriorProbabilities(vector<int> class_size) {
+        for (size_t i = 0; i < prior_probabilities_.size(); i++) {
+            prior_probabilities_[i] =
+                    (float) (fK + class_size[i]) / (float) (fNumberOfClasses * fK + images_.size());
+        }
+    }
+
+    void Model::CalculateFeatureProbabilities(vector<int> class_size) {
+        int number_of_images_unshaded = 0;
+        int number_of_images_shaded = 0;
+        int length = images_[0].GetPixels().size();
+
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                for (int c = 0; c < (int) class_size.size(); c++) {
                     for (const Image &image: images_) {
 
                         if (image.GetClass() == c) {
-                            if (image.GetPixels()[sum] == ' ') {
+                            if (image.GetPixels()[i][j] == ' ') {
                                 ++number_of_images_unshaded;
-                            } else if (image.GetPixels()[sum] == '+' || image.GetPixels()[sum] == '#') {
+                            } else if (image.GetPixels()[i][j] == '+' || image.GetPixels()[i][j] == '#') {
                                 ++number_of_images_shaded;
                             }
                         }
                     }
                     feature_probabilities_[i][j][c][0] =
-                            (float) (fK + number_of_images_unshaded) / (float) (fShadeSize * fK + class_size_[c]);
+                            (float) (fK + number_of_images_unshaded) / (float) (fShadeSize * fK + class_size[c]);
                     feature_probabilities_[i][j][c][1] =
-                            (float) (fK + number_of_images_shaded) / (float) (fShadeSize * fK + class_size_[c]);
+                            (float) (fK + number_of_images_shaded) / (float) (fShadeSize * fK + class_size[c]);
                     number_of_images_shaded = 0;
                     number_of_images_unshaded = 0;
                 }
@@ -63,12 +61,11 @@ namespace naivebayes {
     std::istream &operator>>(std::istream &input, Model &model) {
         std::string line;
         getline(input, line);
-        model.length_ = std::stoi(line);
         model.Initialize4DVector();
-        model.prior_probabilities_.resize(model.fNumberOfClasses);
+        int length = model.feature_probabilities_[0].size();
 
-        for (int i = 0; i < model.length_; i++) {
-            for (int j = 0; j < model.length_; j++) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
                 for (int c = 0; c < model.fNumberOfClasses; c++) {
                     for (int s = 0; s < model.fShadeSize; s++) {
                         getline(input, line);
@@ -86,9 +83,11 @@ namespace naivebayes {
     }
 
     std::ostream &operator<<(std::ostream &output, Model &model) {
-        output << model.length_ << std::endl;
-        for (int i = 0; i < model.length_; i++) {
-            for (int j = 0; j < model.length_; j++) {
+        int length = model.feature_probabilities_[0].size();
+
+        output << length << std::endl;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
                 for (int c = 0; c < model.fNumberOfClasses; c++) {
                     for (int s = 0; s < model.fShadeSize; s++) {
                         output << model.feature_probabilities_[i][j][c][s] << std::endl;
@@ -104,9 +103,10 @@ namespace naivebayes {
     }
 
     void Model::Initialize4DVector() {
-        feature_probabilities_ = std::vector<std::vector<std::vector<std::vector<float>>>>(length_,
+        int length = images_[0].GetPixels().size();
+        feature_probabilities_ = std::vector<std::vector<std::vector<std::vector<float>>>>(length,
                                                                                            std::vector<std::vector<std::vector<float>>>(
-                                                                                                   length_,
+                                                                                                   length,
                                                                                                    std::vector<std::vector<float>>(
                                                                                                            (int) fNumberOfClasses,
                                                                                                            std::vector<float>(

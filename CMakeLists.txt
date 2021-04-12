@@ -54,6 +54,7 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND CORE_SOURCE_FILES src/core/file_processors/image_processor.cc
         src/core/image.cc
         src/core/model.cc
+        src/core/image_evaluator.cc
         src/core/file_processors/model_processor.cc)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
@@ -65,7 +66,7 @@ list(APPEND TEST_FILES tests/test_model.cc
         tests/test_image_processor.cc
         tests/test_model_processor.cc)
 
-add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES})
+add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES} src/core/image_evaluator.cc)
 target_include_directories(train-model PRIVATE include)
 
 ci_make_app(

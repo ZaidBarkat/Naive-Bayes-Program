@@ -10,9 +10,8 @@ int main() {
   // TODO: Replace this with code that reads the training data, trains a model,
   // and saves the trained model to a file.
 
-    naivebayes::ImageProcessor file = naivebayes::ImageProcessor("..\\trainingimagesandlabels.txt");
-    naivebayes::model model(file.getImages(), file.GetLength());
-    model.CalculatePriorProbabilities();
-    model.CalculateFeatureProbabilities();
+  std::vector<naivebayes::Image> training_images = naivebayes::Image::ImagesFromFile("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\trainingimagesandlabels.txt");
+  naivebayes::Model model;
+  model.Train(training_images);
   return 0;
 }
