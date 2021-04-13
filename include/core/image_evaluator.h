@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "model.h"
 
 namespace naivebayes {
 
@@ -10,7 +11,7 @@ namespace naivebayes {
 
     class ImageEvaluator {
     public:
-        void Classify(Image image_to_classify, vector<Image> training_images);
+        void Classify(Image image_to_classify, Model model);
 
     private:
         int label_;
