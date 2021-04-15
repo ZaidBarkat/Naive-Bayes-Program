@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+#include <core/image.h>
+#include <core/image_evaluator.h>
 #include "cinder/gl/gl.h"
 
 namespace naivebayes {
@@ -49,7 +52,11 @@ class Sketchpad {
    */
   void Clear();
 
- private:
+    const Model &getModel() const;
+
+    const vector<std::vector<char>> &GetShaded() const;
+
+private:
   glm::vec2 top_left_corner_;
 
   size_t num_pixels_per_side_;
@@ -58,6 +65,10 @@ class Sketchpad {
   double pixel_side_length_;
 
   double brush_radius_;
+
+  std::vector<std::vector<char>> shaded_;
+
+  Model model_for_classify_;
 };
 
 }  // namespace visualizer
