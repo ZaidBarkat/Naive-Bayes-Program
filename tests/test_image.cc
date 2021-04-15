@@ -3,7 +3,8 @@
 
 
 TEST_CASE("Check image data") {
-    std::vector<naivebayes::Image> images = naivebayes::Image::ImagesFromFile("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt");
+    std::vector<naivebayes::Image> images = naivebayes::Image::ImagesFromFile(
+            "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt");
 
     SECTION("Test image class") {
         REQUIRE(5 == images[1].GetClass());
@@ -14,7 +15,8 @@ TEST_CASE("Check image data") {
 }
 
 TEST_CASE("Check image data with 7 by 7") {
-    std::vector<naivebayes::Image> images = naivebayes::Image::ImagesFromFile("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt");
+    std::vector<naivebayes::Image> images = naivebayes::Image::ImagesFromFile(
+            "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt");
     SECTION("Test image class") {
         REQUIRE(5 == images[1].GetClass());
     }

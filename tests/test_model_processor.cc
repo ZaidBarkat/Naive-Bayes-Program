@@ -3,10 +3,10 @@
 #include <fstream>
 
 
-
 TEST_CASE("Check Model load and write") {
     naivebayes::Model model;
-    model.Train(naivebayes::Image::ImagesFromFile("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt"));
+    model.Train(naivebayes::Image::ImagesFromFile(
+            "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabels.txt"));
     SECTION("Check Model write file") {
 
         std::ofstream file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
@@ -15,14 +15,15 @@ TEST_CASE("Check Model load and write") {
         }
 
         std::string line;
-        std::ifstream check_file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
+        std::ifstream check_file(
+                "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
         getline(check_file, line);
         SECTION("Test model file Write line length") {
-            REQUIRE("28" == line);
+            REQUIRE("0.75" == line);
         }
         SECTION("Test model file Write data") {
             getline(check_file, line);
-            REQUIRE("0.75" == line);
+            REQUIRE("0.25" == line);
         }
     }
     SECTION("Check Model load file") {
@@ -38,12 +39,19 @@ TEST_CASE("Check Model load and write") {
         SECTION("Test model file feature data") {
             REQUIRE(0.6f == Approx(new_model.GetFeatureProbabilities()[14][14][1][1]));
         }
+        SECTION("Test new model data features") {
+            REQUIRE(new_model.GetFeatureProbabilities() == model.GetFeatureProbabilities());
+        }
+        SECTION("Test new model data priors") {
+            REQUIRE(new_model.GetPriorProbabilities() == model.GetPriorProbabilities());
+        }
     }
 }
 
 TEST_CASE("Check Model load and write for 7 by 7") {
     naivebayes::Model model;
-    model.Train(naivebayes::Image::ImagesFromFile("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt"));
+    model.Train(naivebayes::Image::ImagesFromFile(
+            "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt"));
     SECTION("Check Model write file") {
         std::ofstream file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
         if (file.is_open()) {
@@ -51,7 +59,8 @@ TEST_CASE("Check Model load and write for 7 by 7") {
         }
 
         std::string line;
-        std::ifstream check_file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
+        std::ifstream check_file(
+                "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
         getline(check_file, line);
         SECTION("Test model file Write line length") {
             REQUIRE("7" == line);
@@ -60,7 +69,8 @@ TEST_CASE("Check Model load and write for 7 by 7") {
             getline(check_file, line);
             REQUIRE("0.75" == line);
         }
-    }SECTION("Check Model load file") {
+    }
+    SECTION("Check Model load file") {
         naivebayes::Model new_model;
         std::ifstream file("C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
         if (file.is_open()) {
