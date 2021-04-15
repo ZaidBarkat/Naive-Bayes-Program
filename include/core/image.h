@@ -10,6 +10,10 @@ namespace naivebayes {
 
     class Image {
     public:
+        Image(vector<vector<char>> pixels);
+
+        Image();
+
         /**
          * Gets the class between 0 - 9 from the text file.
          *
@@ -31,10 +35,12 @@ namespace naivebayes {
         static vector<Image> ImagesFromFile(std::string path);
 
 
+
     private:
         int class_;
         //string pixels_;
         vector<vector<char>> pixels_;
+        int length_;
     };
 
 }  // namespace naivebayes
