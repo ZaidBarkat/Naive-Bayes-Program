@@ -9,7 +9,7 @@ namespace naivebayes {
     }
 
     void Model::Train(vector<Image> images) {
-        images_ = images;
+        images_ = std::move(images);
         vector<int> class_size;
         Initialize4DVector();
 
@@ -42,7 +42,7 @@ namespace naivebayes {
                         if (image.GetClass() == c) {
                             if (image.GetPixels()[i][j] == ' ') {
                                 ++number_of_images_unshaded;
-                            } else if (image.GetPixels()[i][j] == '+' || image.GetPixels()[i][j] == '#') {
+                            } else {
                                 ++number_of_images_shaded;
                             }
                         }

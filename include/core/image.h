@@ -35,10 +35,8 @@ namespace naivebayes {
         static vector<Image> ImagesFromFile(std::string path);
 
 
-
     private:
         int class_;
-        //string pixels_;
         vector<vector<char>> pixels_;
         int length_;
     };

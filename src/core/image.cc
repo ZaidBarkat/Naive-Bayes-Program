@@ -87,5 +87,5 @@ namespace naivebayes {
 
         return images;
     }
-       }
-       // namespace naivebayes
+}
+// namespace naivebayes

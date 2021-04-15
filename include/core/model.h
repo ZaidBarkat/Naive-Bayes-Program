@@ -13,7 +13,7 @@ namespace naivebayes {
     public:
 
         /**
-         * empty constructor if model is being written from a file.
+         * Empty constructor that also resizes vectors.
          */
         Model();
 
@@ -21,6 +21,10 @@ namespace naivebayes {
 
         friend std::ostream &operator<<(std::ostream &output, Model &model);
 
+        /**
+         * Calculated Prior and Feature probabilities.
+         * @param images that are going to be used to calculate probabilities
+         */
         void Train(vector<Image> images);
 
 

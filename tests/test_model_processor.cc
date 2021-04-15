@@ -18,12 +18,12 @@ TEST_CASE("Check Model load and write") {
         std::ifstream check_file(
                 "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
         getline(check_file, line);
-        SECTION("Test model file Write line length") {
-            REQUIRE("0.75" == line);
+        SECTION("Test model file Write first line") {
+            REQUIRE("1.5" == line);
         }
-        SECTION("Test model file Write data") {
+        SECTION("Test model file Write second line") {
             getline(check_file, line);
-            REQUIRE("0.25" == line);
+            REQUIRE("0.5" == line);
         }
     }
     SECTION("Check Model load file") {
@@ -37,7 +37,7 @@ TEST_CASE("Check Model load and write") {
             REQUIRE(0.11111f == Approx(new_model.GetPriorProbabilities()[0]));
         }
         SECTION("Test model file feature data") {
-            REQUIRE(0.6f == Approx(new_model.GetFeatureProbabilities()[14][14][1][1]));
+            REQUIRE(0.6f == Approx(new_model.GetFeatureProbabilities()[0][0][0][0]));
         }
         SECTION("Test new model data features") {
             REQUIRE(new_model.GetFeatureProbabilities() == model.GetFeatureProbabilities());
@@ -48,7 +48,7 @@ TEST_CASE("Check Model load and write") {
     }
 }
 
-TEST_CASE("Check Model load and write for 7 by 7") {
+TEST_CASE("Check Model load and write for 2 by 2") {
     naivebayes::Model model;
     model.Train(naivebayes::Image::ImagesFromFile(
             "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\testimagesandlabelssmaller.txt"));
@@ -62,12 +62,12 @@ TEST_CASE("Check Model load and write for 7 by 7") {
         std::ifstream check_file(
                 "C:\\Users\\zaids\\Cinder\\my-projects\\naive-bayes-ZaidBarkat\\modelprobabilities.txt");
         getline(check_file, line);
-        SECTION("Test model file Write line length") {
-            REQUIRE("7" == line);
+        SECTION("Test model file Write first line") {
+            REQUIRE("1" == line);
         }
-        SECTION("Test model file Write data") {
+        SECTION("Test model file Write second line") {
             getline(check_file, line);
-            REQUIRE("0.75" == line);
+            REQUIRE("0.5" == line);
         }
     }
     SECTION("Check Model load file") {
@@ -80,7 +80,7 @@ TEST_CASE("Check Model load and write for 7 by 7") {
             REQUIRE(0.1875f == Approx(new_model.GetPriorProbabilities()[0]));
         }
         SECTION("Test model file feature data") {
-            REQUIRE(0.25f == Approx(new_model.GetFeatureProbabilities()[4][4][4][1]));
+            REQUIRE(0.25f == Approx(new_model.GetFeatureProbabilities()[0][0][0][0]));
         }
         SECTION("Test new model data features") {
             REQUIRE(new_model.GetFeatureProbabilities() == model.GetFeatureProbabilities());
