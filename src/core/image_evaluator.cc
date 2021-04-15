@@ -27,14 +27,18 @@ namespace naivebayes {
             classify_probability.push_back(probability);
         }
 
-        int max = classify_probability[0];
-        for (int p = 0; p < classify_probability.size(); p++) {
+        float max = classify_probability[0];
+        for (size_t p = 0; p < classify_probability.size(); p++) {
             if (max < classify_probability[p]) {
                 max = classify_probability[p];
                 label_ = p;
             }
         }
 
+    }
+
+    int ImageEvaluator::GetLabel() const {
+        return label_;
     }
 
 }

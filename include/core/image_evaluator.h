@@ -13,6 +13,8 @@ namespace naivebayes {
     public:
         void Classify(Image image_to_classify, Model model);
 
+        int GetLabel() const;
+
     private:
         int label_;
     };
