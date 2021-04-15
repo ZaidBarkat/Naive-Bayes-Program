@@ -38,6 +38,9 @@ void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
     case ci::app::KeyEvent::KEY_RETURN:
       // ask your classifier to classify the image that's currently drawn on the
       // sketchpad and update current_prediction_
+      ImageEvaluator image_evaluator;
+      image_evaluator.Classify(Image(sketchpad_.GetShaded()), sketchpad_.getModel());
+      current_prediction_ = image_evaluator.GetLabel();
       break;
 
     case ci::app::KeyEvent::KEY_DELETE:
