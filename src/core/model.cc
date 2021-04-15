@@ -59,7 +59,6 @@ namespace naivebayes {
     }
 
     std::istream &operator>>(std::istream &input, Model &model) {
-        //std::string line;
         model.Initialize4DVector();
         int length = model.feature_probabilities_[0].size();
 
@@ -67,9 +66,7 @@ namespace naivebayes {
             for (int j = 0; j < length; j++) {
                 for (int c = 0; c < model.fNumberOfClasses; c++) {
                     for (int s = 0; s < model.fShadeSize; s++) {
-                       // getline(input, line);
                         input >> model.feature_probabilities_[i][j][c][s];
-                        //model.feature_probabilities_[i][j][c][s] = std::stof(line);
                     }
                 }
             }
@@ -77,8 +74,6 @@ namespace naivebayes {
 
         for (float &probability: model.prior_probabilities_) {
             input >> probability;
-//            getline(input, line);
-//            probability = std::stof(line);
         }
         return input;
     }
